@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script src="js/axios.js"></script>
+    <style>
+        body{
+            margin: 0;
+            padding: 50px 0;
+        }
+        a{
+            text-decoration: none;
+            color: #333;
+        }
+        ul{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        h4,p{
+            margin: 0;
+        }
+        header{
+            height: 44px;
+            background: #333;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            color: #fff;
+            line-height: 44px;
+            text-align: center;
+        }
+        nav{
+            display: flex;
+            justify-content: space-around;
+            /*align-items: center;*/
+            height: 44px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #ff4753;
+        }
+        nav a{
+            line-height: 44px;
+            color: #fff;
+            width: 100%;
+            text-align: center;
+            transition: all .5s;
+        }
+        nav a:hover{
+
+            background: #333;
+        }
+        nav .active{
+            /*color: #ffaa77;*/
+            background: #333;
+        }
+        .list{
+            box-sizing: border-box;
+            padding: 10px;
+        }
+        .list li{
+            box-sizing: border-box;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .list time{
+            color: #eee;
+            font-size: 12px;
+        }
+        .list img{
+            
+        }
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity .5s
+        }
+        .fade-enter, .fade-leave-active {
+            opacity: 0
+        }
+        .masking{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <header>
+            笑话
+        </header>
+        <transition name="fade" mode="out-in">
+            <router-view v-on:masked="mask"></router-view>
+        </transition>
+        <nav>
+            <router-link to="picture">图片笑话</router-link>
+            <router-link to="picText">图文笑话</router-link>
+            <router-link to="text">文字笑话</router-link>            
+        </nav>
+        <div class="masking" v-if="masking">
+            加载中...
+        </div>
+    </div>
+
+    <script>
+        var picture = {
+            template:`<div class='container'>
+                <ul class="list">
+                    <li v-for="(item,index) in list" :key="index">
+                        <div class="item-body">
+                            <h4>{{item.title}}</h4>
+                            <time>{{item.ct | sharp}}</time>
+                        </div>
+                        <img :src="item.img" width="100%">
+                    </li>
+                </ul>
+            </div>`,
+            data(){
+                return{
+                    list:[],
+                }
+            },
+            filters:{
+                sharp:function(value){
+                    return "#"+value+"#"
+                }
+            },
+            methods:{
+                getData(){
+                    this.$emit('masked',false);
+                    axios.get('http://route.showapi.com/341-3',{params:{
+                        showapi_appid:34299,
+                        showapi_sign:"b7963b098051400bbc59fdfdd6d1ac54"
+                    }}).then((response)=>{
+                        console.log(response,this.list);
+                        this.list = response.data.showapi_res_body.contentlist;   
+                        this.$emit('masked',false);
+                        
+                    })
+                }
+            },
+            created(){
+                this.getData()
+            }
+        }
+        var picText = {
+            template:`<div class='container'>
+                <ul class="list">
+                    <li v-for="(item,index) in list" :key="index">
+                        <div class="item-body">
+                            <h4>{{item.title | sharp}}</h4>
+                            <time>{{item.ct}}</time>
+                        </div>
+                        <img :src="item.img" width="100%">
+                        
+                    </li>
+                </ul>
+            </div>`,
+            data(){
+                return{
+                    list:[]
+                }
+            },
+            filters:{
+                sharp:function(value){
+                    return "#"+value+"#"
+                }
+            },
+            methods:{
+                getData(){
+                    axios.get('http://route.showapi.com/341-2',{params:{
+                        showapi_appid:34299,
+                        showapi_sign:"b7963b098051400bbc59fdfdd6d1ac54"
+                    }}).then((response)=>{
+                        console.log(response,this.list)
+                        this.list = response.data.showapi_res_body.contentlist   
+                    })
+                }
+            },
+            created(){
+                this.getData()
+            }
+        }
+        var text = {
+            template:`<div class='container'>
+                <ul class="list">
+                    <li v-for="(item,index) in list" :key="index">
+                        <div class="item-body">
+                            <h4>{{item.title | sharp}}</h4>
+                            <time>{{item.ct}}</time>
+                        </div>
+                        <p>{{item.text}}</p>
+                        
+                    </li>
+                </ul>
+            </div>`,
+            data(){
+                return{
+                    list:[]
+                }
+            },
+            filters:{
+                sharp:function(value){
+                    return "#"+value+"#"
+                }
+            },
+            methods:{
+                getData(){
+                    axios.get('http://route.showapi.com/341-1',{params:{
+                        showapi_appid:34299,
+                        showapi_sign:"b7963b098051400bbc59fdfdd6d1ac54"
+                    }}).then((response)=>{
+                        console.log(response,this.list)
+                        this.list = response.data.showapi_res_body.contentlist   
+                    })
+                }
+            },
+            created(){
+                this.getData()
+            }
+        }
+        //配置路由
+        var routers = [
+            {
+                path:"/",
+                redirect:"/picture"
+            },
+            {
+                path:"/picture",
+                component:picture,
+            },{
+                path:"/picText",
+                component:picText
+            },{
+                path:"/text",
+                component:text
+            }
+        ]
+
+        //生成路由对象
+        var router = new VueRouter({
+            routes:routers,
+            linkActiveClass:"active"
+        })
+
+        //生成实例对象
+        var app = new Vue({
+            el:"#app",
+            router:router,
+            data:{
+                masking:false
+            },
+            methods:{
+                mask(data){
+                    this.masking = data;
+                }
+            }
+
+        })
+    
+    </script>
+</body>
+</html>

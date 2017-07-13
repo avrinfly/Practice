@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3D轮播图</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .banner {
+            /*图片的宽度*/
+            width: 1200px;
+            height: 340px;
+            border: 1px solid blue;
+            margin: 50px auto 0;
+            position: relative;
+        }
+        
+        ul {
+            list-style: none;
+            width: 1200px;
+            height: 340px;
+            margin: 0;
+            padding: 0;
+        }
+        
+        ul li {
+            /*因为分成五分，ul宽分为五分即可*/
+            width: 200px;
+            height: 340px;
+            float: left;
+            position: relative;
+            /*CSS3D
+            transform-style:preserve-3d;会让子元素保留3d效果
+            */
+            transform-style: preserve-3d;
+            transition: all 1s;
+        }
+        
+        ul li span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: inline-block;
+        }
+        /*图片效果*/
+        /*li:nth-child(1) {
+            background: pink;
+        }
+        
+        li:nth-child(2) {
+            background: yellow;
+        }
+        
+        li:nth-child(3) {
+            background: #cad;
+        }
+        
+        li:nth-child(4) {
+            background: #aac;
+        }
+        
+        li:nth-child(5) {
+            background: #ced;
+        }*/
+        
+        li span:nth-child(1) {
+            background: url("./images/banner1.jpg");
+            transform: rotateX(0deg) translateZ(75px);
+        }
+        
+        li span:nth-child(2) {
+            background: url("./images/banner2.jpg");
+            transform: rotateX(90deg) translateZ(75px);
+        }
+        
+        li span:nth-child(3) {
+            background: url("./images/banner3.jpg");
+            transform: rotateX(180deg) translateZ(75px);
+        }
+        
+        li span:nth-child(4) {
+            background: url("./images/banner4.jpg");
+            transform: rotateX(270deg) translateZ(75px);
+        }
+        
+        li:nth-child(2) span {
+            background-position: -200px 0px;
+        }
+        
+        li:nth-child(3) span {
+            background-position: -400px 0px;
+        }
+        
+        li:nth-child(4) span {
+            background-position: -600px 0px;
+        }
+        
+        li:nth-child(5) span {
+            background-position: -800px 0px;
+        }
+        
+        li:nth-child(6) span {
+            background-position: -1000px 0px;
+        }
+        
+        .banner a {
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            top: 50%;
+            margin-top: -30px;
+            color: #fff;
+            text-align: center;
+            line-height: 60px;
+            text-decoration: none;
+            background: red;
+            opacity: .5;
+        }
+        
+        #prev {
+            left: 0px;
+        }
+        
+        #next {
+            right: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="banner">
+        <ul>
+            <li>
+                <!--一个span就代表一个立方体里的面-->
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </li>
+            <li>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </li>
+            <li>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </li>
+            <li>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </li>
+            <li>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </li>
+            <li>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </li>
+        </ul>
+        <a href="#" id="prev">左</a>
+        <a href="#" id="next">右</a>
+    </div>
+    <script src="./js/jquery-1.12.4.min.js"></script>
+    <script>
+        $(function() {
+            // 切忌在$函数中不能使用let，存在变量提升的问题
+            var pic = 0; //模拟当前图片的下标
+            var stop = true;
+            $("#prev").click(function() {
+                if (!stop) { //理解为轮播还未结束，不能点击左或者右按钮；
+                    return; //退出
+                }
+                stop = false;
+                pic--;
+                $(".banner li").each(function(key) {
+                    $(this).css({
+                        "transform": "rotateX(" + pic * 90 + "deg)", //图片翻转的角度
+                        "transition-delay": key * .25 + "s"
+                    })
+                })
+            })
+            $("#next").click(function() {
+                if (!stop) { //理解为轮播还未结束，不能点击左或者右按钮；
+                    return; //退出
+                }
+                stop = false;
+                pic++;
+                $(".banner li").each(function(key) {
+                    $(this).css({
+                        "transform": "rotateX(" + pic * 90 + "deg)",
+                        "transition-delay": key * .25 + "s"
+                    })
+                })
+            })
+            $(".banner li:last-child").on("webkitTransitionEnd", function() {
+                stop = true;
+            })
+        })
+    </script>
+</body>
+
+</html>
