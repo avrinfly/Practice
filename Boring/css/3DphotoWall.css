@@ -1,0 +1,278 @@
+        /*因为有九个，360deg平分九份*/
+        /*正方向0~40deg*/
+        
+        @keyframes rotateY1 {
+            from {
+                transform: rotateY(0deg);
+            }
+            to {
+                transform: rotateY(40deg);
+            }
+        }
+        /*正方向40~80deg*/
+        
+        @keyframes rotateY2 {
+            from {
+                transform: rotateY(40deg);
+            }
+            to {
+                transform: rotateY(80deg);
+            }
+        }
+        /*正方向80~120deg*/
+        
+        @keyframes rotateY3 {
+            from {
+                transform: rotateY(80deg);
+            }
+            to {
+                transform: rotateY(120deg);
+            }
+        }
+        /*正方向120~160deg*/
+        
+        @keyframes rotateY4 {
+            from {
+                transform: rotateY(120deg);
+            }
+            to {
+                transform: rotateY(160deg);
+            }
+        }
+        /*正方向160~200deg*/
+        
+        @keyframes rotateY5 {
+            from {
+                transform: rotateY(160deg);
+            }
+            to {
+                transform: rotateY(200deg);
+            }
+        }
+        /*正方向200~240deg*/
+        
+        @keyframes rotateY6 {
+            from {
+                transform: rotateY(200deg);
+            }
+            to {
+                transform: rotateY(240deg);
+            }
+        }
+        /*正方向240~280deg*/
+        
+        @keyframes rotateY7 {
+            from {
+                transform: rotateY(240deg);
+            }
+            to {
+                transform: rotateY(280deg);
+            }
+        }
+        /*正方向280~320deg*/
+        
+        @keyframes rotateY8 {
+            from {
+                transform: rotateY(280deg);
+            }
+            to {
+                transform: rotateY(320deg);
+            }
+        }
+        /*正方向320~360deg*/
+        
+        @keyframes rotateY9 {
+            from {
+                transform: rotateY(320deg);
+            }
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+        /*负方向0~40deg*/
+        
+        @keyframes rotate-Y1 {
+            from {
+                transform: rotateY(0deg);
+            }
+            to {
+                transform: rotateY(-40deg);
+            }
+        }
+        /*负方向40~80deg*/
+        
+        @keyframes rotate-Y2 {
+            from {
+                transform: rotateY(-40deg);
+            }
+            to {
+                transform: rotateY(-80deg);
+            }
+        }
+        /*负方向80~120deg*/
+        
+        @keyframes rotate-Y3 {
+            from {
+                transform: rotateY(-80deg);
+            }
+            to {
+                transform: rotateY(-120deg);
+            }
+        }
+        /*负方向120~160deg*/
+        
+        @keyframes rotate-Y4 {
+            from {
+                transform: rotateY(-120deg);
+            }
+            to {
+                transform: rotateY(-160deg);
+            }
+        }
+        /*负方向160~200deg*/
+        
+        @keyframes rotate-Y5 {
+            from {
+                transform: rotateY(-160deg);
+            }
+            to {
+                transform: rotateY(-200deg);
+            }
+        }
+        /*负方向200~240deg*/
+        
+        @keyframes rotate-Y6 {
+            from {
+                transform: rotateY(-200deg);
+            }
+            to {
+                transform: rotateY(-240deg);
+            }
+        }
+        /*负方向240~280deg*/
+        
+        @keyframes rotate-Y7 {
+            from {
+                transform: rotateY(-240deg);
+            }
+            to {
+                transform: rotateY(-280deg);
+            }
+        }
+        /*负方向280~320deg*/
+        
+        @keyframes rotate-Y8 {
+            from {
+                transform: rotateY(-280deg);
+            }
+            to {
+                transform: rotateY(-320deg);
+            }
+        }
+        /*负方向320~360deg*/
+        
+        @keyframes rotate-Y9 {
+            from {
+                transform: rotateY(-320deg);
+            }
+            to {
+                transform: rotateY(-360deg);
+            }
+        }
+        
+        .box {
+            width: 800px;
+            height: 500px;
+            margin: 20px auto;
+        }
+        
+        .photoWrap {
+            width: 100%;
+            perspective: 800px;
+        }
+        
+        .container {
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+        
+        .con {
+            width: 200px;
+            height: 118px;
+            text-align: center;
+            line-height: 118px;
+            position: absolute;
+            top: 160px;
+            left: 300px;
+            /*box-shadow: 0 0 20px rgba(0, 0, 0,.5) inset;*/
+            background: #2ec3e7;
+        }
+        
+        .img1 {
+            transform: rotateY(0deg) translateZ(300px);
+        }
+        
+        .img2 {
+            transform: rotateY(40deg) translateZ(300px);
+        }
+        
+        .img3 {
+            transform: rotateY(80deg) translateZ(300px);
+        }
+        
+        .img4 {
+            transform: rotateY(120deg) translateZ(300px);
+        }
+        
+        .img5 {
+            transform: rotateY(160deg) translateZ(300px);
+        }
+        
+        .img6 {
+            transform: rotateY(200deg) translateZ(300px);
+        }
+        
+        .img7 {
+            transform: rotateY(240deg) translateZ(300px);
+        }
+        
+        .img8 {
+            transform: rotateY(280deg) translateZ(300px);
+        }
+        
+        .img9 {
+            transform: rotateY(320deg) translateZ(300px);
+        }
+        
+        .prev {
+            width: 30px;
+            height: 70px;
+            line-height: 70px;
+            color: #6d8099;
+            float: left;
+            font-size: 22px;
+            background: #ddd;
+            text-align: center;
+            border-radius: 5px;
+            position: relative;
+            bottom: -235px;
+            z-index: 2;
+        }
+        
+        .next {
+            width: 30px;
+            height: 70px;
+            line-height: 70px;
+            color: #6d8099;
+            float: right;
+            font-size: 22px;
+            background: #ddd;
+            text-align: center;
+            border-radius: 5px;
+            position: relative;
+            top: 235px;
+            z-index: 2;
+        }
